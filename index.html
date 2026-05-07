@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giò Thủ A Gấu – Chuyên Sỉ Lẻ Giò Thủ Nem Nướng Khô</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FDF8F0;
+    --warm-white: #FFFDF9;
+    --orange: #E8640A;
+    --orange-light: #FF8C3A;
+    --brown: #6B3A1F;
+    --brown-light: #9B5E35;
+    --gold: #D4A017;
+    --text-dark: #1A0A00;
+    --text-mid: #4A2800;
+    --text-soft: #8B6040;
+    --border: #EDD9C0;
+    --shadow: rgba(107,58,31,0.12);
+  }
+ 
+  * { margin:0; padding:0; box-sizing:border-box; }
+ 
+  html { scroll-behavior: smooth; }
+ 
+  body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    background: var(--warm-white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+ 
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content:'';
+    position:fixed; inset:0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events:none; z-index:0; opacity:.4;
+  }
+ 
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:100;
+    background: rgba(253,248,240,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    display: flex; align-items:center; justify-content:space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--orange);
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--brown); }
+  .nav-links { display:flex; gap:2rem; list-style:none; }
+  .nav-links a {
+    font-size: .875rem; font-weight:500;
+    color: var(--text-mid);
+    text-decoration:none;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--orange); }
+  .nav-cta {
+    background: var(--orange);
+    color: #fff !important;
+    padding: .45rem 1.1rem;
+    border-radius: 50px;
+    font-weight:600 !important;
+    transition: background .2s !important;
+  }
+  .nav-cta:hover { background: var(--brown) !important; color:#fff !important; }
+ 
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    padding-top: 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #FFF8EE 0%, #FDF0DC 60%, #FDEBD0 100%);
+  }
+  .hero-bg-pattern {
+    position:absolute; inset:0; opacity:.07;
+    background-image: radial-gradient(circle, var(--orange) 1.5px, transparent 1.5px);
+    background-size: 32px 32px;
+  }
+  .hero-blob {
+    position:absolute; right:-10%; top:10%;
+    width:600px; height:600px;
+    background: radial-gradient(circle, #FFD09B55 0%, transparent 70%);
+    border-radius:50%;
+  }
+  .hero-content {
+    padding: 6% 8% 6% 10%;
+    position:relative; z-index:2;
+    animation: fadeUp .8s ease both;
+  }
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:.5rem;
+    background: #FFF3E0;
+    border: 1px solid #FFD19B;
+    padding: .35rem .9rem;
+    border-radius: 50px;
+    font-size:.8rem; font-weight:600;
+    color: var(--orange);
+    margin-bottom: 1.4rem;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--brown);
+    margin-bottom: 1rem;
+  }
+  .hero-title em {
+    font-style:normal;
+    color: var(--orange);
+  }
+  .hero-subtitle {
+    font-size: 1.05rem;
+    color: var(--text-soft);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    max-width: 420px;
+  }
+  .hero-actions { display:flex; gap:1rem; flex-wrap:wrap; }
+  .btn-primary {
+    background: var(--orange);
+    color: #fff;
+    padding: .85rem 2rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size:.95rem;
+    text-decoration:none;
+    transition: all .25s;
+    box-shadow: 0 4px 20px rgba(232,100,10,.3);
+  }
+  .btn-primary:hover {
+    background: var(--brown);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(107,58,31,.3);
+  }
+  .btn-outline {
+    border: 2px solid var(--orange);
+    color: var(--orange);
+    padding: .8rem 1.8rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration:none;
+    transition: all .25s;
+    font-size:.95rem;
+  }
+  .btn-outline:hover { background: var(--orange); color:#fff; }
+ 
+  .hero-stats {
+    display:flex; gap:2rem; margin-top:2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .stat-item { text-align:center; }
+  .stat-num {
+    font-family:'Playfair Display',serif;
+    font-size:1.8rem; font-weight:900;
+    color: var(--orange);
+    display:block;
+  }
+  .stat-label { font-size:.75rem; color:var(--text-soft); font-weight:500; letter-spacing:.5px; text-transform:uppercase; }
+ 
+  .hero-visual {
+    position:relative; z-index:2;
+    padding: 6% 8% 6% 4%;
+    animation: fadeUp .8s .2s ease both;
+  }
+  .hero-img-main {
+    width:100%; border-radius:24px;
+    box-shadow: 0 32px 80px rgba(107,58,31,.2);
+    object-fit:cover; aspect-ratio:4/3;
+    display:block;
+  }
+  .hero-float-card {
+    position:absolute; bottom:12%; left:-5%;
+    background:#fff;
+    border-radius:16px;
+    padding:1rem 1.3rem;
+    box-shadow: 0 8px 32px rgba(107,58,31,.15);
+    display:flex; align-items:center; gap:.8rem;
+    animation: float 3s ease-in-out infinite;
+  }
+  .float-icon { font-size:1.8rem; }
+  .float-text { font-size:.8rem; font-weight:700; color:var(--brown); }
+  .float-sub { font-size:.72rem; color:var(--text-soft); }
+  .hero-float-card2 {
+    position:absolute; top:12%; right:-3%;
+    background: var(--orange);
+    border-radius:16px;
+    padding:.8rem 1.2rem;
+    box-shadow: 0 8px 24px rgba(232,100,10,.35);
+    color:#fff;
+    text-align:center;
+    animation: float 3s 1s ease-in-out infinite;
+  }
+  .float-big { font-size:1.5rem; font-weight:900; font-family:'Playfair Display',serif; display:block; }
+  .float-sm { font-size:.72rem; font-weight:600; opacity:.85; }
+ 
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+ 
+  /* ── SECTION WRAPPER ── */
+  section { padding: 6rem 5%; position:relative; }
+  .section-label {
+    display:inline-block;
+    font-size:.75rem; font-weight:700;
+    letter-spacing:2px; text-transform:uppercase;
+    color: var(--orange);
+    margin-bottom:.8rem;
+  }
+  .section-title {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.8rem,3.5vw,2.8rem);
+    font-weight:900;
+    color:var(--brown);
+    margin-bottom:1rem;
+  }
+  .section-title em { font-style:normal; color:var(--orange); }
+  .section-desc {
+    font-size:1rem; color:var(--text-soft);
+    line-height:1.75; max-width:540px;
+    margin-bottom:3rem;
+  }
+ 
+  /* ── WHY US ── */
+  .why-section { background: var(--cream); }
+  .why-grid {
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:2rem; margin-top:1rem;
+  }
+  .why-card {
+    background:#fff;
+    border-radius:20px;
+    padding:2rem;
+    border: 1px solid var(--border);
+    transition: all .3s;
+    position:relative;
+    overflow:hidden;
+  }
+  .why-card::before {
+    content:'';
+    position:absolute; top:0; left:0; right:0; height:3px;
+    background: linear-gradient(90deg, var(--orange), var(--gold));
+    transform: scaleX(0);
+    transition: transform .3s;
+    transform-origin: left;
+  }
+  .why-card:hover { transform:translateY(-6px); box-shadow: 0 16px 48px var(--shadow); }
+  .why-card:hover::before { transform:scaleX(1); }
+  .why-icon {
+    width:52px; height:52px;
+    background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+    border-radius:14px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.5rem; margin-bottom:1.2rem;
+  }
+  .why-card h3 { font-size:1rem; font-weight:700; color:var(--brown); margin-bottom:.5rem; }
+  .why-card p { font-size:.875rem; color:var(--text-soft); line-height:1.65; }
+ 
+  /* ── MENU ── */
+  .menu-section { background: var(--warm-white); }
+  .menu-filter {
+    display:flex; gap:.75rem; flex-wrap:wrap;
+    margin-bottom:2.5rem;
+  }
+  .filter-btn {
+    padding:.5rem 1.3rem;
+    border-radius:50px;
+    border: 2px solid var(--border);
+    background:transparent;
+    font-family:'Be Vietnam Pro',sans-serif;
+    font-size:.85rem; font-weight:600;
+    color:var(--text-mid);
+    cursor:pointer;
+    transition: all .2s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--orange);
+    border-color: var(--orange);
+    color:#fff;
+  }
+  .menu-grid {
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:2rem;
+  }
+  .menu-card {
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    border: 1px solid var(--border);
+    transition: all .3s;
+    position:relative;
+  }
+  .menu-card:hover { transform:translateY(-8px); box-shadow: 0 24px 60px var(--shadow); }
+  .menu-img {
+    width:100%; aspect-ratio:4/3;
+    object-fit:cover;
+    display:block;
+    transition: transform .4s;
+  }
+  .menu-card:hover .menu-img { transform:scale(1.05); }
+  .menu-img-wrap { overflow:hidden; position:relative; }
+  .menu-badge {
+    position:absolute; top:.8rem; left:.8rem;
+    background:var(--orange);
+    color:#fff; font-size:.7rem; font-weight:700;
+    padding:.25rem .7rem; border-radius:50px;
+    letter-spacing:.5px; text-transform:uppercase;
+  }
+  .menu-badge.hot { background: #D72828; }
+  .menu-badge.new { background: #1B8A4E; }
+  .menu-body { padding:1.3rem; }
+  .menu-name {
+    font-family:'Playfair Display',serif;
+    font-size:1.15rem; font-weight:700;
+    color:var(--brown); margin-bottom:.4rem;
+  }
+  .menu-desc { font-size:.82rem; color:var(--text-soft); line-height:1.6; margin-bottom:1rem; }
+  .menu-footer {
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:.8rem;
+    border-top: 1px solid var(--border);
+  }
+  .menu-price {
+    font-weight:800; font-size:1.05rem;
+    color: var(--orange);
+    font-family:'Playfair Display',serif;
+  }
+  .menu-order {
+    background: var(--orange);
+    color:#fff; border:none;
+    padding:.4rem .9rem; border-radius:50px;
+    font-size:.78rem; font-weight:700;
+    cursor:pointer; transition: background .2s;
+    font-family:'Be Vietnam Pro',sans-serif;
+  }
+  .menu-order:hover { background:var(--brown); }
+ 
+  /* ── HOW TO ORDER ── */
+  .order-section {
+    background: linear-gradient(135deg, #FFF3E0 0%, #FFE8CC 100%);
+  }
+  .steps-grid {
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:2rem; position:relative;
+  }
+  .steps-grid::before {
+    content:'';
+    position:absolute; top:36px; left:10%; right:10%; height:2px;
+    background: linear-gradient(90deg, var(--orange) 0%, var(--gold) 100%);
+    z-index:0;
+  }
+  .step-item { text-align:center; position:relative; z-index:1; }
+  .step-num {
+    width:72px; height:72px;
+    background: var(--orange);
+    color:#fff;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display',serif;
+    font-size:1.6rem; font-weight:900;
+    margin:0 auto 1.2rem;
+    box-shadow: 0 8px 24px rgba(232,100,10,.3);
+    border: 4px solid #fff;
+  }
+  .step-icon { font-size:1.8rem; display:block; margin-bottom:.5rem; }
+  .step-item h3 { font-size:.95rem; font-weight:700; color:var(--brown); margin-bottom:.4rem; }
+  .step-item p { font-size:.82rem; color:var(--text-soft); line-height:1.6; }
+ 
+  /* ── GALLERY ── */
+  .gallery-section { background:var(--cream); }
+  .gallery-grid {
+    columns:3; gap:1rem;
+  }
+  .gallery-item {
+    break-inside:avoid;
+    margin-bottom:1rem;
+    border-radius:16px;
+    overflow:hidden;
+    position:relative;
+    cursor:pointer;
+  }
+  .gallery-item img {
+    width:100%; display:block;
+    transition: transform .4s;
+  }
+  .gallery-item:hover img { transform:scale(1.05); }
+  .gallery-overlay {
+    position:absolute; inset:0;
+    background: rgba(107,58,31,0);
+    transition: background .3s;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .gallery-item:hover .gallery-overlay { background:rgba(107,58,31,.35); }
+  .gallery-overlay span {
+    color:#fff; font-size:2rem;
+    opacity:0; transition:opacity .3s;
+  }
+  .gallery-item:hover .gallery-overlay span { opacity:1; }
+ 
+  /* ── TESTIMONIALS ── */
+  .review-section { background:var(--warm-white); }
+  .reviews-grid {
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:1.5rem;
+  }
+  .review-card {
+    background:#fff;
+    border-radius:20px;
+    padding:1.8rem;
+    border: 1px solid var(--border);
+    position:relative;
+  }
+  .review-card::before {
+    content: '"';
+    position:absolute; top:1rem; right:1.5rem;
+    font-family:'Playfair Display',serif;
+    font-size:4rem; color:var(--border);
+    line-height:1;
+  }
+  .stars { color:#F59E0B; font-size:1rem; margin-bottom:.8rem; }
+  .review-text { font-size:.88rem; color:var(--text-mid); line-height:1.7; margin-bottom:1.2rem; }
+  .reviewer { display:flex; align-items:center; gap:.8rem; }
+  .reviewer-avatar {
+    width:42px; height:42px; border-radius:50%;
+    object-fit:cover;
+    border:2px solid var(--border);
+  }
+  .reviewer-name { font-weight:700; font-size:.88rem; color:var(--brown); }
+  .reviewer-loc { font-size:.75rem; color:var(--text-soft); }
+ 
+  /* ── CONTACT ── */
+  .contact-section {
+    background: linear-gradient(135deg, var(--brown) 0%, #3D1F0A 100%);
+    color:#fff;
+  }
+  .contact-section .section-label { color: var(--gold); }
+  .contact-section .section-title { color:#fff; }
+  .contact-grid {
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:4rem; align-items:start;
+  }
+  .contact-info-item {
+    display:flex; gap:1rem; align-items:flex-start;
+    margin-bottom:1.8rem;
+  }
+  .contact-icon {
+    width:48px; height:48px; flex-shrink:0;
+    background:rgba(255,255,255,.1);
+    border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.3rem;
+  }
+  .contact-info-item h4 { font-size:.8rem; font-weight:600; color:rgba(255,255,255,.6); margin-bottom:.3rem; text-transform:uppercase; letter-spacing:.5px; }
+  .contact-info-item p { font-size:1rem; font-weight:600; color:#fff; }
+  .contact-info-item a { color:var(--gold); text-decoration:none; font-size:1rem; font-weight:600; }
+  .contact-map-placeholder {
+    background:rgba(255,255,255,.06);
+    border-radius:20px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.1);
+    height:320px;
+  }
+  .contact-map-placeholder iframe { width:100%; height:100%; border:none; }
+ 
+  /* ── FLOATING CONTACT ── */
+  .fab-wrap {
+    position:fixed; bottom:2rem; right:1.5rem;
+    display:flex; flex-direction:column; gap:.8rem;
+    z-index:200;
+  }
+  .fab {
+    width:54px; height:54px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    text-decoration:none; font-size:1.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,.2);
+    transition: transform .2s;
+  }
+  .fab:hover { transform:scale(1.1); }
+  .fab-zalo { background:#0068FF; }
+  .fab-phone { background:var(--orange); }
+  .fab-fb { background:#1877F2; }
+ 
+  /* ── FOOTER ── */
+  footer {
+    background:#1A0A00;
+    color:rgba(255,255,255,.5);
+    padding:2rem 5%;
+    text-align:center;
+    font-size:.82rem;
+  }
+  footer strong { color:var(--gold); }
+ 
+  /* ── SCROLL ANIMATION ── */
+  .reveal {
+    opacity:0; transform:translateY(30px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.visible { opacity:1; transform:none; }
+ 
+  /* ── MOBILE ── */
+  @media(max-width:768px){
+    .hero { grid-template-columns:1fr; padding-top:80px; }
+    .hero-visual { display:none; }
+    .hero-content { padding:3rem 5%; }
+    .hero-stats { flex-wrap:wrap; gap:1.2rem; }
+    .contact-grid { grid-template-columns:1fr; gap:2rem; }
+    .steps-grid::before { display:none; }
+    .gallery-grid { columns:2; }
+    nav .nav-links { display:none; }
+  }
+</style>
+</head>
+<body>
+ 
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">🐻 Giò Thủ <span>A Gấu</span></div>
+  <ul class="nav-links">
+    <li><a href="#menu">Thực Đơn</a></li>
+    <li><a href="#why">Tại Sao Chọn</a></li>
+    <li><a href="#order">Đặt Hàng</a></li>
+    <li><a href="#review">Đánh Giá</a></li>
+    <li><a href="#contact" class="nav-cta">Liên Hệ</a></li>
+  </ul>
+</nav>
+ 
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-blob"></div>
+ 
+  <div class="hero-content">
+    <div class="hero-badge">🏪 Kinh doanh tại nhà · Cần Thơ</div>
+    <h1 class="hero-title">
+      Giò Thủ<br><em>A Gấu</em><br>Đậm Vị Truyền Thống
+    </h1>
+    <p class="hero-subtitle">
+      Chuyên sỉ lẻ giò thủ, nem nướng, khô các loại.<br>
+      Sản phẩm tươi ngon mỗi ngày – giao tận nơi tại khu vực Cần Thơ.
+    </p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn-primary">🛒 Xem Thực Đơn</a>
+      <a href="tel:0336637325" class="btn-outline">📞 Gọi Ngay</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><span class="stat-num">100%</span><span class="stat-label">Tươi Ngon</span></div>
+      <div class="stat-item"><span class="stat-num">2+</span><span class="stat-label">Năm Kinh Nghiệm</span></div>
+      <div class="stat-item"><span class="stat-num">⭐ 5.0</span><span class="stat-label">Khách Hài Lòng</span></div>
+    </div>
+  </div>
+ 
+  <div class="hero-visual">
+    <div style="position:relative;">
+      <img class="hero-img-main"
+        src="https://images.unsplash.com/photo-1625944230945-1b7dd3b949ab?w=800&q=80"
+        alt="Giò thủ truyền thống">
+      <div class="hero-float-card">
+        <div class="float-icon">🎁</div>
+        <div>
+          <div class="float-text">Giao Tận Nhà</div>
+          <div class="float-sub">Khu vực Cần Thơ</div>
+        </div>
+      </div>
+      <div class="hero-float-card2">
+        <span class="float-big">Luôn<br>Mở Cửa</span>
+        <span class="float-sm">24/7 nhận đơn</span>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- WHY US -->
+<section class="why-section" id="why">
+  <div class="reveal">
+    <div class="section-label">✦ Lý Do Chọn Chúng Tôi</div>
+    <h2 class="section-title">Tại Sao Nên Chọn<br><em>Giò Thủ A Gấu?</em></h2>
+    <p class="section-desc">Chúng tôi tự hào mang đến sản phẩm chất lượng, giá cả hợp lý và dịch vụ tận tâm.</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-card reveal">
+      <div class="why-icon">🥩</div>
+      <h3>Nguyên Liệu Tươi Ngon</h3>
+      <p>Chọn lọc kỹ từng nguyên liệu, đảm bảo vệ sinh an toàn thực phẩm, không chất bảo quản.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon">🏡</div>
+      <h3>Sản Xuất Thủ Công</h3>
+      <p>Làm thủ công theo công thức truyền thống, giữ nguyên hương vị đậm đà đặc trưng.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon">💰</div>
+      <h3>Giá Sỉ & Lẻ Hợp Lý</h3>
+      <p>Nhận đơn sỉ số lượng lớn – giá cạnh tranh. Bán lẻ từng kg cho cá nhân, gia đình.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon">🚚</div>
+      <h3>Giao Hàng Nhanh</h3>
+      <p>Giao tận nơi trong khu vực Vị Thanh, Cần Thơ. Liên hệ đặt hàng qua Zalo/điện thoại.</p>
+    </div>
+  </div>
+</section>
+ 
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div class="reveal">
+    <div class="section-label">✦ Thực Đơn</div>
+    <h2 class="section-title">Các Sản Phẩm<br><em>Của Chúng Tôi</em></h2>
+  </div>
+  <div class="menu-filter">
+    <button class="filter-btn active" onclick="filterMenu('all',this)">Tất Cả</button>
+    <button class="filter-btn" onclick="filterMenu('gio',this)">🥩 Giò Thủ</button>
+    <button class="filter-btn" onclick="filterMenu('nem',this)">🔥 Nem Nướng</button>
+    <button class="filter-btn" onclick="filterMenu('kho',this)">🐟 Khô Các Loại</button>
+    <button class="filter-btn" onclick="filterMenu('mon-phu',this)">🦆 Món Phụ</button>
+  </div>
+  <div class="menu-grid" id="menuGrid">
+ 
+    <!-- Giò Thủ -->
+    <div class="menu-card reveal" data-cat="gio">
+      <div class="menu-img-wrap">
+        <img class="menu-img" src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=600&q=80" alt="Giò Thủ">
+        <span class="menu-badge hot">🔥 Bán Chạy</span>
+      </div>
+      <div class="menu-body">
+        <div class="menu-name">Giò Thủ Truyền Thống</div>
+        <div class="menu-desc">Giò thủ đặc biệt – thịt tai, thịt mặt, bì heo được gói chặt, đông lạnh cắt lát. Hương vị đậm đà, giòn sần sật.</div>
+        <div class="menu-footer">
+          <span class="menu-price">Liên hệ báo giá</span>
+          <button class="menu-order" onclick="orderNow('Giò Thủ Truyền Thống')">Đặt Ngay</button>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="menu-card reveal" data-cat="gio">
+      <div class="menu-img-wrap">
+        <img class="menu-img" src="https://images.unsplash.com/photo-1606851091851-e8c8d244514b?w=600&q=80" alt="Giò Thủ Lá">
+        <span class="menu-badge">Đặc Sản</span>
+      </div>
+      <div class="menu-body">
+        <div class="menu-name">Giò Thủ Gói Lá Chuối</div>
+        <div class="menu-desc">Gói lá chuối thủ công, hương lá tự nhiên thấm vào từng lớp giò. Thích hợp làm quà biếu.</div>
+        <div class="menu-footer">
+          <span class="menu-price">Liên hệ báo giá</span>
+          <button class="menu-order" onclick="orderNow('Giò Thủ Gói Lá Chuối')">Đặt Ngay</button>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Nem Nướng -->
+    <div class="menu-card reveal" data-cat="nem">
+      <div class="menu-img-wrap">
+        <img class="menu-img" src="https://images.unsplash.com/photo-1529042410759-befb1204b468?w=600&q=80" alt="Nem Nướng">
+        <span class="menu-badge hot">🔥 Yêu Thích</span>
+      </div>
+      <div class="menu-body">
+        <div class="menu-name">Nem Nướng Kiểu Nha Trang</div>
+        <div class="menu-desc">Nem thịt heo xay nhuyễn, nướng than hoa thơm lừng. Ăn kèm rau sống, bánh tráng, nước chấm đặc biệt.</div>
+        <div class="menu-footer">
+          <span class="menu-price">Liên hệ báo giá</span>
+          <button class="menu-order" onclick="orderNow('Nem Nướng Kiểu Nha Trang')">Đặt Ngay</button>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="menu-card reveal" data-cat="nem">
+      <div class="menu-img-wrap">
+        <img class="menu-img" src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600&q=80" alt="Chả Giò">
+        <span class="menu-badge new">✨ Mới</span>
+      </div>
+      <div class="menu-body">
+        <div class="menu-name">Chả Giò Chiên Giòn</div>
+        <div class="menu-desc">Vỏ bánh giòn tan, nhân thịt heo, miến, nấm mộc nhĩ. Chiên vàng đẹp, để nguội vẫn giòn.</div>
+        <div class="menu-footer">
+          <span class="menu-price">Liên hệ báo giá</span>
+          <button class="menu-order" onclick="orderNow('Chả Giò Chiên Giòn')">Đặt Ngay</button>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Khô -->
+    <div class="menu-card reveal" data-cat="kho">
+      <div class="menu-img-wrap">
+        <img class="menu-img" src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=600&q=80" alt="Khô Cá">
+        <span class="menu-badge">Đặc Sản</span>
+      </div>
+      <div class="menu-body">
+        <div class="menu-name">Khô Cá Lóc</div>
+        <div class="menu-desc">Cá lóc đồng tươi, muối ướp, phơi nắng tự nhiên. Thịt chắc, ngọt, không chất bảo quản.</div>
+        <div class="menu-footer">
+          <span class="menu-price">Liên hệ báo giá</span>
+          <button class="menu-order" onclick="orderNow('Khô Cá Lóc')">Đặt Ngay</button>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="menu-card reveal" data-cat="kho">
+      <div class="menu-img-wrap">
+        <img class="menu-img" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80" alt="Khô Gà">
+        <span class="menu-badge hot">🔥 Bán Chạy</span>
+      </div>
+      <div class="menu-body">
+        <div class="menu-name">Khô Gà Sả Ớt</div>
+        <div class="menu-desc">Gà ta ướp sả ớt thơm nồng, sấy khô vừa phải, dai mềm, cay nhẹ thích hợp nhâm nhi.</div>
+        <div class="menu-footer">
+          <span class="menu-price">Liên hệ báo giá</span>
+          <button class="menu-order" onclick="orderNow('Khô Gà Sả Ớt')">Đặt Ngay</button>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Món Phụ -->
+    <div class="menu-card reveal" data-cat="mon-phu">
+      <div class="menu-img-wrap">
+        <img class="menu-img" src="https://images.unsplash.com/photo-1562802378-063ec186a863?w=600&q=80" alt="Vịt Trứng">
+        <span class="menu-badge new">✨ Có Bán</span>
+      </div>
+      <div class="menu-body">
+        <div class="menu-name">Vịt Trứng</div>
+        <div class="menu-desc">Vịt đẻ trứng tươi, chăn nuôi sạch. Bán theo con hoặc trứng lẻ. Trứng vịt lộn, trứng vịt sống đều có.</div>
+        <div class="menu-footer">
+          <span class="menu-price">Liên hệ báo giá</span>
+          <button class="menu-order" onclick="orderNow('Vịt Trứng')">Đặt Ngay</button>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="menu-card reveal" data-cat="mon-phu">
+      <div class="menu-img-wrap">
+        <img class="menu-img" src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=600&q=80" alt="Combo">
+        <span class="menu-badge">💝 Combo</span>
+      </div>
+      <div class="menu-body">
+        <div class="menu-name">Combo Tết / Biếu Tặng</div>
+        <div class="menu-desc">Set quà gồm giò thủ + khô + nem – đóng hộp đẹp, thích hợp biếu tặng dịp lễ, Tết.</div>
+        <div class="menu-footer">
+          <span class="menu-price">Liên hệ báo giá</span>
+          <button class="menu-order" onclick="orderNow('Combo Biếu Tặng')">Đặt Ngay</button>
+        </div>
+      </div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<!-- HOW TO ORDER -->
+<section class="order-section" id="order">
+  <div style="text-align:center;" class="reveal">
+    <div class="section-label">✦ Cách Đặt Hàng</div>
+    <h2 class="section-title">Đặt Hàng <em>Siêu Dễ</em></h2>
+    <p class="section-desc" style="margin:0 auto 3rem;">Chỉ 4 bước đơn giản, nhận hàng tươi ngon tại nhà.</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step-item reveal">
+      <div class="step-num">1</div>
+      <span class="step-icon">📲</span>
+      <h3>Liên Hệ</h3>
+      <p>Nhắn Zalo hoặc gọi điện trực tiếp cho A Gấu.</p>
+    </div>
+    <div class="step-item reveal">
+      <div class="step-num">2</div>
+      <span class="step-icon">🛒</span>
+      <h3>Chọn Món</h3>
+      <p>Cho biết loại sản phẩm và số lượng cần mua (sỉ/lẻ).</p>
+    </div>
+    <div class="step-item reveal">
+      <div class="step-num">3</div>
+      <span class="step-icon">💳</span>
+      <h3>Thanh Toán</h3>
+      <p>Chuyển khoản hoặc trả tiền mặt khi nhận hàng.</p>
+    </div>
+    <div class="step-item reveal">
+      <div class="step-num">4</div>
+      <span class="step-icon">🚀</span>
+      <h3>Nhận Hàng</h3>
+      <p>Hàng được giao nhanh tươi ngon tận tay bạn.</p>
+    </div>
+  </div>
+</section>
+ 
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="reveal" style="margin-bottom:2.5rem;">
+    <div class="section-label">✦ Hình Ảnh Thực Tế</div>
+    <h2 class="section-title">Góc Nhìn <em>Thực Tế</em></h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item reveal">
+      <img src="https://images.unsplash.com/photo-1625944230945-1b7dd3b949ab?w=500&q=80" alt="Món ăn">
+      <div class="gallery-overlay"><span>🔍</span></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=500&q=80" alt="Giò thủ">
+      <div class="gallery-overlay"><span>🔍</span></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img src="https://images.unsplash.com/photo-1606851091851-e8c8d244514b?w=500&q=80" alt="Món nướng">
+      <div class="gallery-overlay"><span>🔍</span></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img src="https://images.unsplash.com/photo-1529042410759-befb1204b468?w=500&q=80" alt="Nem nướng">
+      <div class="gallery-overlay"><span>🔍</span></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=500&q=80" alt="Khô cá">
+      <div class="gallery-overlay"><span>🔍</span></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=500&q=80" alt="Khô gà">
+      <div class="gallery-overlay"><span>🔍</span></div>
+    </div>
+  </div>
+</section>
+ 
+<!-- REVIEWS -->
+<section class="review-section" id="review">
+  <div class="reveal">
+    <div class="section-label">✦ Đánh Giá Khách Hàng</div>
+    <h2 class="section-title">Khách Hàng <em>Nói Gì?</em></h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">Giò thủ ở đây ngon thiệt sự! Mua về làm giỗ ai cũng khen. Sẽ tiếp tục ủng hộ chị Gấu hoài hoài 😍</p>
+      <div class="reviewer">
+        <img class="reviewer-avatar" src="https://i.pravatar.cc/80?img=47" alt="">
+        <div><div class="reviewer-name">Chị Lan</div><div class="reviewer-loc">📍 Vị Thanh, Cần Thơ</div></div>
+      </div>
+    </div>
+    <div class="review-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">Mua khô cá lóc về ăn sáng, chất lượng quá trời luôn. Giá sỉ hợp lý, mua nhiều được giảm giá. Giao hàng nhanh nữa!</p>
+      <div class="reviewer">
+        <img class="reviewer-avatar" src="https://i.pravatar.cc/80?img=32" alt="">
+        <div><div class="reviewer-name">Anh Minh</div><div class="reviewer-loc">📍 Long Xuyên, An Giang</div></div>
+      </div>
+    </div>
+    <div class="review-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">Mình hay đặt nem nướng về đãi khách, ai ăn cũng hỏi mua đâu 🔥 Vị đậm đà, cuốn không ngừng được. 10 điểm không có nhưng!</p>
+      <div class="reviewer">
+        <img class="reviewer-avatar" src="https://i.pravatar.cc/80?img=25" alt="">
+        <div><div class="reviewer-name">Chị Hoa</div><div class="reviewer-loc">📍 Hậu Giang</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="reveal">
+    <div class="section-label">✦ Liên Hệ Đặt Hàng</div>
+    <h2 class="section-title">Đặt Hàng <em>Ngay Hôm Nay</em></h2>
+  </div>
+  <div class="contact-grid">
+    <div>
+      <div class="contact-info-item reveal">
+        <div class="contact-icon">📞</div>
+        <div>
+          <h4>Điện Thoại / Zalo</h4>
+          <a href="tel:0336637325">0336 637 325</a><br>
+          <a href="tel:0326376623">0326 376 623</a>
+        </div>
+      </div>
+      <div class="contact-info-item reveal">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <h4>Email</h4>
+          <a href="mailto:lhoai3342@gmail.com">lhoai3342@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-info-item reveal">
+        <div class="contact-icon">📍</div>
+        <div>
+          <h4>Địa Chỉ</h4>
+          <p>Ấp 5, Xã Vị Thanh, Huyện Vị Thủy<br>TP. Cần Thơ, Vi Thanh, Vietnam</p>
+        </div>
+      </div>
+      <div class="contact-info-item reveal">
+        <div class="contact-icon">🕐</div>
+        <div>
+          <h4>Giờ Hoạt Động</h4>
+          <p>Luôn Mở Cửa – 24/7</p>
+        </div>
+      </div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;" class="reveal">
+        <a href="tel:0336637325" class="btn-primary">📞 Gọi Ngay</a>
+        <a href="https://zalo.me/0336637325" target="_blank" class="btn-outline" style="border-color:#0068FF;color:#60AAFF;">💬 Nhắn Zalo</a>
+      </div>
+    </div>
+    <div class="contact-map-placeholder reveal">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31468.77489513!2d105.4533!3d9.7810!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0882c90e7efd9%3A0x6c8d40eb82c0d7a!2sV%E1%BB%8B%20Thanh%2C%20H%E1%BA%ADu%20Giang!5e0!3m2!1svi!2svn!4v1700000000000"
+        allowfullscreen="" loading="lazy">
+      </iframe>
+    </div>
+  </div>
+</section>
+ 
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <strong>Giò Thủ A Gấu</strong> – Chuyên sỉ lẻ giò thủ, nem nướng, khô các loại · Vị Thanh, Cần Thơ</p>
+  <p style="margin-top:.4rem;">📞 0336 637 325 · 0326 376 623 &nbsp;|&nbsp; ✉️ lhoai3342@gmail.com</p>
+</footer>
+ 
+<!-- FLOATING BUTTONS -->
+<div class="fab-wrap">
+  <a href="https://zalo.me/0336637325" target="_blank" class="fab fab-zalo" title="Chat Zalo">💬</a>
+  <a href="tel:0336637325" class="fab fab-phone" title="Gọi điện">📞</a>
+  <a href="https://www.facebook.com/profile.php?id=61578545984880" target="_blank" class="fab fab-fb" title="Facebook">📘</a>
+</div>
+ 
+<!-- ORDER MODAL -->
+<div id="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:24px;padding:2.5rem;max-width:400px;width:90%;text-align:center;position:relative;">
+    <button onclick="document.getElementById('modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;border:none;background:none;font-size:1.4rem;cursor:pointer;">✕</button>
+    <div style="font-size:3rem;margin-bottom:1rem;">🛒</div>
+    <h3 style="font-family:'Playfair Display',serif;color:var(--brown);margin-bottom:.5rem;" id="modalTitle">Đặt hàng</h3>
+    <p style="color:var(--text-soft);font-size:.875rem;margin-bottom:1.5rem;">Liên hệ ngay để đặt hàng và nhận báo giá tốt nhất!</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a href="tel:0336637325" class="btn-primary">📞 Gọi: 0336 637 325</a>
+      <a href="https://zalo.me/0336637325" target="_blank" style="background:#0068FF;color:#fff;padding:.85rem 2rem;border-radius:50px;font-weight:700;text-decoration:none;font-size:.95rem;">💬 Zalo</a>
+    </div>
+  </div>
+</div>
+ 
+<script>
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+revealEls.forEach(el => observer.observe(el));
+ 
+// Menu filter
+function filterMenu(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.menu-card').forEach(card => {
+    if(cat === 'all' || card.dataset.cat === cat) {
+      card.style.display = '';
+      setTimeout(()=>card.style.opacity='1',10);
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+ 
+// Order modal
+function orderNow(product) {
+  document.getElementById('modalTitle').textContent = product;
+  const m = document.getElementById('modal');
+  m.style.display = 'flex';
+}
+document.getElementById('modal').addEventListener('click', function(e) {
+  if(e.target === this) this.style.display = 'none';
+});
+</script>
+</body>
+</html>
